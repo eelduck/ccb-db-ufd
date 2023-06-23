@@ -1,0 +1,25 @@
+# IPython Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# dotenv
+.env
+
+# virtualenv
+.env/
+venv/
+venv[0-9]*/
+venv36/
+ENV/
+.env3/
+.ve/
+.ve2/
+.venv/
+/venv-build/
+
+.idea
+
+# VSCode
+.vscode

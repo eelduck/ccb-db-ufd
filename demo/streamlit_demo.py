@@ -147,4 +147,4 @@ st.sidebar.button('Получить прогноз', on_click=process_selected)
 
 if uploaded_file is not None:
     dataframe = pd.read_excel(uploaded_file)
-    left.write(dataframe.head(5))
+    left.write(dataframe.head(10))

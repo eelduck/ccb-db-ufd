@@ -1,7 +1,7 @@
 FROM python:3.8.16-slim as build
 
 RUN apt update && apt --no-install-recommends --assume-yes install \
-    g++ python3 curl git
+    g++ python3-dev curl git
 
 
 WORKDIR /app

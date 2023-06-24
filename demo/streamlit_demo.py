@@ -87,14 +87,13 @@ def get_predictions(df: pd.DataFrame,
     # step 3: Get regression predictions
     regressed = regressor.predict(features)
     filtered[TARGET_NAME] = regressed
-    # index_changed = classified == 0
+    index_changed = classified == 0
     # left.write(index_changed.shape)
     # left.write(np.arange(len(index_changed))[index_changed])
     # index_changed = np.where(classified == 0)[0]
 
-    if len(index_changed) != 0:
-        filtered.loc[index_changed, TARGET_NAME] = 0
-        filtered[classified == 0].index
+    if sum(index_changed) != 0:
+        filtered.loc[filtered[classified == 0].index.values, TARGET_NAME] = 0
 
     return filtered
 
@@ -124,6 +123,8 @@ def process_selected() -> Optional[List[str]]:
             data=file,
             file_name=RESULT_PATH,
         )
+
+    right.write(predictions.head(10))
 
     return predictions
 

@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "ccb-db-ufd"
+version = "0.1.0"
+description = ""
+authors = ["Ildar Azamatov <xset55@gmail.com>"]
+readme = "README.md"
+packages = [{include = "ccb_db_ufd"}]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.9.7"
+streamlit = "^1.23.1"
+lightautoml = "^0.3.7.3"
+jupyter = "^1.0.0"
+openpyxl = "^3.1.2"
+gdown = "^4.7.1"
+shap = "^0.41.0"
+torchvision = "0.9.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

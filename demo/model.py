@@ -111,12 +111,15 @@ class Preprocessor:
 
 
 class Classifier:
-    def __init__(self, path: str):
+    def __init__(self, path: str, threshold: float = 0.001):
+        self.threshold = threshold
+
         with open(path, 'rb') as handle:
             self.model = pickle.load(handle)
 
     def predict(self, df: pd.DataFrame) -> pd.DataFrame:
         pred_test_reg = self.model.predict(df).data
+        pred_test_reg = (pred_test_reg > self.threshold).astype(int)
         return pred_test_reg
 
 

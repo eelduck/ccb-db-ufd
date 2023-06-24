@@ -13,6 +13,8 @@ st.set_page_config(layout="wide")
 program_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Constants
+TARGET_NAME = 'Кол-во дней'
+
 TASKS_PATH = 'tasks.json'
 COLUMNS_PATH = 'columns.json'
 OBJECTS_PATH = 'objects.json'
@@ -42,29 +44,35 @@ objects = load_json(OBJECTS_PATH, program_dir, OBJECTS_ERROR_TEXT)
 columns = load_json(COLUMNS_PATH, program_dir, COLUMNS_ERROR_TEXT)
 
 
-def get_predictions(df: pd.DataFrame, tasks_choices: list[str], object_choices: list[str]) -> pd.DataFrame:
-    out = df.loc[df['obj_key'].isin(object_choices)]
-    # right.write(out)
-    out = out.astype({"Кодзадачи": 'string'})
-    t_choices = [c.split(" ", 1) for c in tasks_choices]
-    out = out.loc[out['Кодзадачи'].isin(t_choices)]
+def get_predictions(df: pd.DataFrame, t_selected: list[str], o_selected: list[str]) -> pd.DataFrame:
+    if not len(t_selected):
+        t_selected = task_choices
+    if not len(o_selected):
+        o_selected = object_choices
 
+    # Фильтр по запросу пользователя
+    filtered = df.loc[df['obj_key'].isin(o_selected)]
+    # right.write(out)
+    filtered = filtered.astype({"Кодзадачи": 'string'})
+    t_choices = [c.split(" ", 1) for c in t_selected]
+    filtered = filtered.loc[filtered['Кодзадачи'].isin(t_choices)]
 
     # step 1: Get features from dataset
     # TODO
+    features = preprocessor.add_features(filtered)
 
 
     # step 2: Get classified model
     # TODO
+    classified = classifer.predict(features)
+    index_changed = classified == 0
 
-    # step 3: Get predictions
-    # predictions = predictor.predict(df, tasks_choices)
-    # df_prediction = pd.DataFrame(data=list(zip(tasks_choices, predictions)),
-    #                              columns=['Название этапа', 'Предсказание'])
-    right.write(out.dtypes)
-    right.write(out)
+    # step 3: Get regression predictions
+    regressed = regressor.predict(features)
+    filtered[TARGET_NAME] = regressed
+    filtered.loc[index_changed, TARGET_NAME] = 0
 
-    return out
+    return filtered
 
 
 def process_selected() -> Optional[List[str]]:
@@ -80,7 +88,8 @@ def process_selected() -> Optional[List[str]]:
         st.error(f"В тестовом файле отсутствует одна из необходимых колонок")
         return
     predictions = get_predictions(dataframe, task_choices, object_choices)
-    right.table(predictions)
+
+    right.write(predictions)
 
 
 left, right = st.columns(2)

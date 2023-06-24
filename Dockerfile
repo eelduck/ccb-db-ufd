@@ -16,6 +16,7 @@ RUN pip3 install --no-cache-dir --upgrade pip
 RUN pip3 install --no-cache-dir poetry~=1.5
 RUN poetry export --without-hashes > requirements.txt
 RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install lightautoml
 
 COPY demo ./demo/
 COPY README.md ./

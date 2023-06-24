@@ -116,6 +116,7 @@ def process_selected() -> Optional[List[str]]:
 
     save_path = os.path.join(program_dir, RESULT_PATH)
     predictions.to_excel(save_path)
+    right.write(predictions.head(10))
 
     with open(save_path, 'rb') as file:
         btn = right.download_button(
@@ -124,7 +125,6 @@ def process_selected() -> Optional[List[str]]:
             file_name=RESULT_PATH,
         )
 
-    right.write(predictions.head(10))
 
     return predictions
 

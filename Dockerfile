@@ -1,12 +1,12 @@
-FROM python:3.10-slim-buster as build
+FROM python:3.8-slim-buster as build
 
 RUN apt update && apt --no-install-recommends --assume-yes install \
-    g++ python3-dev curl git
+    g++ python3 curl git
 
 WORKDIR /app
 
 # Create the virtual environment.
-RUN python3.10 -m venv /venv
+RUN python3.8 -m venv /venv
 ENV PATH=/venv/bin:$PATH
 
 COPY pyproject.toml poetry.lock ./

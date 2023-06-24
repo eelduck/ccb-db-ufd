@@ -16,6 +16,7 @@ program_dir = os.path.dirname(os.path.abspath(__file__))
 # Constants
 TARGET_NAME = 'Кол-во дней'
 
+RESULT_PATH = 'result.xlsx'
 TASKS_PATH = 'tasks.json'
 COLUMNS_PATH = 'columns.json'
 OBJECTS_PATH = 'objects.json'
@@ -86,21 +87,17 @@ def get_predictions(df: pd.DataFrame,
     # step 3: Get regression predictions
     regressed = regressor.predict(features)
     filtered[TARGET_NAME] = regressed
-    index_changed = classified == 0
+    # index_changed = classified == 0
     # left.write(index_changed.shape)
-    # left.write(np.arange(len(index_changed)))
-    index_changed = np.arange(len(index_changed))[index_changed]
+    # left.write(np.arange(len(index_changed))[index_changed])
+    # index_changed = np.where(classified == 0)[0]
 
-    # return
-
-    # left.write(filtered[TARGET_NAME])
-    # left.write(type(filtered[TARGET_NAME]))
-    # left.write(index_changed)
-
-    if sum(index_changed) != 0:
-        filtered.loc[index_changed,TARGET_NAME] = 0
+    if len(index_changed) != 0:
+        filtered.loc[index_changed, TARGET_NAME] = 0
+        filtered[classified == 0].index
 
     return filtered
+
 
 def process_selected() -> Optional[List[str]]:
     """ Обработка выбранных пользователем этапов"""
@@ -118,7 +115,17 @@ def process_selected() -> Optional[List[str]]:
 
     predictions = get_predictions(dataframe, task_choices, object_choices)
 
-    right.write(predictions)
+    save_path = os.path.join(program_dir, RESULT_PATH)
+    predictions.to_excel(save_path)
+
+    with open(save_path, 'rb') as file:
+        btn = right.download_button(
+            label="Скачать результат",
+            data=file,
+            file_name=RESULT_PATH,
+        )
+
+    return predictions
 
 
 left, right = st.columns(2)

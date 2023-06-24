@@ -4,6 +4,7 @@ from typing import List, Optional, Any
 import streamlit as st
 import pandas as pd
 import numpy as np
+import subprocess
 import os
 from model import Classifier, Regressor, Preprocessor
 
@@ -28,10 +29,13 @@ TASKS_ERROR_TEXT = "Данные о проверяемых этапах отсу
 OBJECTS_ERROR_TEXT = "Данные об объектах отсутствуют.\nПроверьте файл 'objects.json' и обновите страницу."
 COLUMNS_ERROR_TEXT = "Данные об проверяемых колонках.\nПроверьте файл 'columns.json' и обновите страницу."
 
+
+subprocess.run(["gdown", "https://drive.google.com/uc?id=1EO7qyoQR5TvBQAnha3Vc-xe9ZjbOJ_vq", "-O", "./demo/regressor.pkl"])
+subprocess.run(["gdown", "https://drive.google.com/uc?id=1rL8tppk8luTVf1Z2CU0dQzKHiIHlBkr_", "-O", "./demo/classifier.pkl"])
+
 preprocessor = Preprocessor(path_to_attr=os.path.join(program_dir, PREPROCESSOR_PATH))
 classifer = Classifier(os.path.join(program_dir, CLASSIFER_PATH))
 regressor = Regressor(os.path.join(program_dir, REGRESSOR_PATH))
-
 
 # Load dropdown menus
 def load_json(path: str, program_dir: str, error_text: str) -> Any:

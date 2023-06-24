@@ -15,9 +15,9 @@ RUN pip3 install --no-cache-dir --upgrade pip
 RUN pip3 install --no-cache-dir poetry~=1.5
 RUN poetry export --without-hashes > requirements.txt
 RUN pip3 install --no-cache-dir -r requirements.txt \
-RUN pip3 install lightautoml
 
-run mkdir ./test/
+
+RUN mkdir ./test/
 RUN mkdir ./demo/
 RUN gdown https://drive.google.com/uc?id=1EO7qyoQR5TvBQAnha3Vc-xe9ZjbOJ_vq -O ./demo/regressor.pkl
 RUN gdown https://drive.google.com/uc?id=1rL8tppk8luTVf1Z2CU0dQzKHiIHlBkr_ -O ./demo/classifier.pkl

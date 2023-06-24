@@ -20,4 +20,4 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 COPY demo ./demo/
 COPY README.md ./
 
-CMD ["streamlit", "run", "demo/streamlit_demo.py", "--server.port", "5000"]
+CMD ["streamlit", "run", "demo/streamlit_demo.py", "--server.port", "5000", "--server.maxUploadSize", "500", "--theme.base", "light"]

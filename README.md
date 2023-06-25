@@ -1,7 +1,9 @@
 # ccb-db-ufd
+
 Репозиторий команды **Click Clack Boom** на хакатоне **Цифровой прорыв. Сезон ИИ. УФО**
 
 ## Описание задачи
+
 Интеграция ИИ и ML алгоритмов на
 цифровую площадку строительства. С
 помощью искусственного интеллекта
@@ -11,12 +13,30 @@
 предсказательный анализ варианта
 развития событий при наступлении предполагаемых рисков.
 
+## Содержание репозитория
+
+- В папке `./demo/` содержится код запуска демонстрации проекта.
+- Файлы модели содержатся на гугл
+  диске [ [ссылка](https://drive.google.com/drive/folders/1Lus6H4BIwl84cLMAkCFTg979xBv1Y5K9?usp=sharing) ].
+  При сборке docker контейнера веса автоматически подгружаются
+- Резлультаты по тестовому датасету:
+    - В файле `Тест_with_result.xlsx` содержится результаты предсказания по критическим
+      этапам строительства
+    - В файле `Тест_with_result_full.xlsx` содержатся результаты предсказания по всем
+      этапам строительства
+- Есть docker файл `Dockerfile` для локального запуска приложения через docker
+- Есть docker-comspose файл `docker-compose.yaml` для локального запуска приложения через
+  docker-compose
+- В файле `requirements.txt` необходимые зависимости
+
 ## Начало работы
+
 ### Подготовка окружения
+
 - Устанавливаем `python 3.8`
     - Windows
 
-        Устанавливаем через [официальный установщик](https://www.python.org/downloads/)
+      Устанавливаем через [официальный установщик](https://www.python.org/downloads/)
 
     - Linux
 
@@ -27,7 +47,8 @@
 - Устанавливаем `make`
     - Windows:
 
-        Устанавливаем [chocolatey](https://chocolatey.org/install) и устанавливаем `make` с помощью команды:
+      Устанавливаем [chocolatey](https://chocolatey.org/install) и устанавливаем `make` с
+      помощью команды:
 
         ```powershell
         choco install make
@@ -42,7 +63,8 @@
 - Устанавливаем [poetry](https://python-poetry.org/docs/#installation)
     - Windows
 
-        Используйте [официальные инструкции](https://python-poetry.org/docs/#windows-powershell-install-instructions) или команду `powershell`
+      Используйте [официальные инструкции](https://python-poetry.org/docs/#windows-powershell-install-instructions)
+      или команду `powershell`
 
         ```powershell
         (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
@@ -57,13 +79,17 @@
     ```bash
     make poetry-install
     ```
-- Устанавливаем Docker Engine и Docker Compose согласно официальной инструкции для вашей платформы:
-  - [Docker Engine](https://docs.docker.com/engine/install/)
-  - [Docker Compose](https://docs.docker.com/compose/install/)
+- Устанавливаем Docker Engine и Docker Compose согласно официальной инструкции для вашей
+  платформы:
+    - [Docker Engine](https://docs.docker.com/engine/install/)
+    - [Docker Compose](https://docs.docker.com/compose/install/)
+
 ## Запуск системы
+
 - Для запуска системы введите команду
     ```bash
     make docker-start
     ```
-  После этого у вас соберется докер образ и запустится контейнер, на котором запущен Streamlit. 
+  После этого у вас соберется докер образ и запустится контейнер, на котором запущен
+  Streamlit.
   Попасть на него можно по адресу http://localhost:5000/

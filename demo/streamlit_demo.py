@@ -25,13 +25,19 @@ CLASSIFER_PATH = 'classifier.pkl'
 REGRESSOR_PATH = 'regressor.pkl'
 PREPROCESSOR_PATH = 'attr.csv'
 
+N_HEAD_RECORDS = 20
+
+
+
 TASKS_ERROR_TEXT = "Данные о проверяемых этапах отсутствуют.\nПроверьте файл 'tasks.json' и обновите страницу."
 OBJECTS_ERROR_TEXT = "Данные об объектах отсутствуют.\nПроверьте файл 'objects.json' и обновите страницу."
 COLUMNS_ERROR_TEXT = "Данные об проверяемых колонках.\nПроверьте файл 'columns.json' и обновите страницу."
 
-
 subprocess.run(["gdown", "https://drive.google.com/uc?id=1EO7qyoQR5TvBQAnha3Vc-xe9ZjbOJ_vq", "-O", "./demo/regressor.pkl"])
 subprocess.run(["gdown", "https://drive.google.com/uc?id=1rL8tppk8luTVf1Z2CU0dQzKHiIHlBkr_", "-O", "./demo/classifier.pkl"])
+
+TITLE_TEXT = "Модель прогнозирования сдвига сроков сдачи"
+
 
 preprocessor = Preprocessor(path_to_attr=os.path.join(program_dir, PREPROCESSOR_PATH))
 classifer = Classifier(os.path.join(program_dir, CLASSIFER_PATH))
@@ -120,7 +126,7 @@ def process_selected() -> Optional[List[str]]:
 
     save_path = os.path.join(program_dir, RESULT_PATH)
     predictions.to_excel(save_path)
-    right.write(predictions.head(10))
+    right.write(predictions.head(N_HEAD_RECORDS))
 
     with open(save_path, 'rb') as file:
         btn = right.download_button(
@@ -132,8 +138,11 @@ def process_selected() -> Optional[List[str]]:
 
     return predictions
 
-
+st.markdown('<h1 style="text-align: center;">Модель прогнозирования сдвига сроков сдачи критических этапов капитального строительства</h1>', unsafe_allow_html=True)
 left, right = st.columns(2)
+
+left.markdown('<h2 style="text-align: center;">Загруженные данные</h2>', unsafe_allow_html=True)
+right.markdown('<h2 style="text-align: center;">Предсказанные данные</h2>', unsafe_allow_html=True)
 # Боковая панель
 st.sidebar.markdown('## Параметры')
 # Этапы
@@ -151,4 +160,4 @@ st.sidebar.button('Получить прогноз', on_click=process_selected)
 
 if uploaded_file is not None:
     dataframe = pd.read_excel(uploaded_file)
-    left.write(dataframe.head(10))
+    left.write(dataframe.head(N_HEAD_RECORDS))

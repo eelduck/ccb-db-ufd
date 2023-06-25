@@ -6,6 +6,7 @@ import pickle
 from lightautoml.automl.presets.tabular_presets import TabularAutoML
 
 
+# hello
 class Preprocessor:
     def __init__(self, path_to_attr: str):
         self.attr = pd.read_csv(path_to_attr,

@@ -27,7 +27,6 @@ PREPROCESSOR_PATH = 'attr.csv'
 N_HEAD_RECORDS = 20
 
 
-
 TASKS_ERROR_TEXT = "Данные о проверяемых этапах отсутствуют.\nПроверьте файл 'tasks.json' и обновите страницу."
 OBJECTS_ERROR_TEXT = "Данные об объектах отсутствуют.\nПроверьте файл 'objects.json' и обновите страницу."
 COLUMNS_ERROR_TEXT = "Данные об проверяемых колонках.\nПроверьте файл 'columns.json' и обновите страницу."
@@ -62,8 +61,8 @@ def get_predictions(df: pd.DataFrame,
         o_selected = object_choices
     df = df.astype({'Кодзадачи': 'string'})
 
-    # left.write(t_selected)
-    # left.write(o_selected)
+    left.write(t_selected)
+    left.write(o_selected)
 
     # Фильтр по запросу пользователя
     filtered = df.loc[df['obj_key'].isin(o_selected)]
@@ -118,7 +117,7 @@ def process_selected() -> Optional[List[str]]:
         return
     dataframe['date_report'] = selected_date
 
-    predictions = get_predictions(dataframe, task_choices, object_choices)
+    predictions = get_predictions(dataframe, selected_tasks, selected_objects)
 
     save_path = os.path.join(program_dir, RESULT_PATH)
     predictions.to_excel(save_path)

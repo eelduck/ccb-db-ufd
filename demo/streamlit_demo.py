@@ -61,8 +61,8 @@ def get_predictions(df: pd.DataFrame,
         o_selected = object_choices
     df = df.astype({'Кодзадачи': 'string'})
 
-    left.write(t_selected)
-    left.write(o_selected)
+    # left.write(t_selected)
+    # left.write(o_selected)
 
     # Фильтр по запросу пользователя
     filtered = df.loc[df['obj_key'].isin(o_selected)]

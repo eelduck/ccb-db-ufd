@@ -23,9 +23,9 @@ OBJECTS_PATH = 'objects.json'
 CLASSIFER_PATH = 'classifier.pkl'
 REGRESSOR_PATH = 'regressor.pkl'
 PREPROCESSOR_PATH = 'attr.csv'
-HISTORICAL_DATA_PATH = 'historical_data.csv'
 
 N_HEAD_RECORDS = 20
+
 
 
 TASKS_ERROR_TEXT = "Данные о проверяемых этапах отсутствуют.\nПроверьте файл 'tasks.json' и обновите страницу."
@@ -34,7 +34,7 @@ COLUMNS_ERROR_TEXT = "Данные об проверяемых колонках.
 
 TITLE_TEXT = "Модель прогнозирования сдвига сроков сдачи"
 
-preprocessor = Preprocessor(path_to_attr=os.path.join(program_dir, PREPROCESSOR_PATH), path_to_historical=os.path.join(program_dir, HISTORICAL_DATA_PATH))
+preprocessor = Preprocessor(path_to_attr=os.path.join(program_dir, PREPROCESSOR_PATH))
 classifer = Classifier(os.path.join(program_dir, CLASSIFER_PATH))
 regressor = Regressor(os.path.join(program_dir, REGRESSOR_PATH))
 
@@ -134,11 +134,11 @@ def process_selected() -> Optional[List[str]]:
 
     return predictions
 
-st.markdown('<h2 style="text-align: center;">Модель прогнозирования сдвига сроков сдачи критических этапов капитального строительства</h1>', unsafe_allow_html=True)
+st.markdown('<h1 style="text-align: center;">Модель прогнозирования сдвига сроков сдачи критических этапов капитального строительства</h1>', unsafe_allow_html=True)
 left, right = st.columns(2)
 
-left.markdown('<h3 style="text-align: center;">Загруженные данные</h2>', unsafe_allow_html=True)
-right.markdown('<h3 style="text-align: center;">Предсказанные данные</h2>', unsafe_allow_html=True)
+left.markdown('<h2 style="text-align: center;">Загруженные данные</h2>', unsafe_allow_html=True)
+right.markdown('<h2 style="text-align: center;">Предсказанные данные</h2>', unsafe_allow_html=True)
 # Боковая панель
 st.sidebar.markdown('## Параметры')
 # Этапы

@@ -152,6 +152,13 @@ selected_date = st.sidebar.date_input("Введите дату отчета")
 uploaded_file = st.sidebar.file_uploader("Загрузите набор данных", type=['xlsx'])
 # Получить прогноз
 st.sidebar.button('Получить прогноз', on_click=process_selected)
+st.sidebar.markdown('## Как использовать:')
+st.sidebar.markdown('1. Выберите файл для загрузки.')
+st.sidebar.markdown('2. Дождитесь, пока таблица загрузится полностью: загруженные данные станут яркими, фигура человека сверху справа закончит бежать.')
+st.sidebar.markdown('3. Пока идет загрузка, вы можете выбрать параметры фильтрации: 1 или несколько. Для того, чтобы выбрать все варианты, оставьте фильтр пустым.')
+st.sidebar.markdown('4. Нажмите на кнопку `Получить прогноз`.')
+st.sidebar.markdown('5. Дождитесь полного предсказания модели: фигура человека в правом верхнем углу закончит бежать.')
+st.sidebar.markdown('6. Нажмите на кнопку `Скачать результат`.')
 
 if uploaded_file is not None:
     dataframe = pd.read_excel(uploaded_file)
